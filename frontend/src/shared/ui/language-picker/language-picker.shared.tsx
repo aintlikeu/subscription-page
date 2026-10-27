@@ -49,7 +49,7 @@ export function LanguagePicker(props: IProps) {
     if (locales.length === 1) return null
 
     return (
-        <Menu position="bottom" width={150} withArrow={false} withinPortal>
+        <Menu position="bottom-end" width={150} withArrow={false} withinPortal>
             <Menu.Target>
                 <ActionIcon
                     color="gray"

@@ -1,4 +1,4 @@
-import { Box, Center, Container, Group, Image, Stack, Title } from '@mantine/core'
+import { Box, Container, Group, Image, Stack, Title } from '@mantine/core'
 import { TSubscriptionPagePlatformKey } from '@remnawave/subscription-page-types'
 
 import {
@@ -13,8 +13,7 @@ import {
     SubscriptionLinkWidget,
     TimelineBlockRenderer
 } from '@widgets/main'
-import { useAppConfig, useAppConfigStoreActions, useCurrentLang } from '@entities/app-config-store'
-import { LanguagePicker } from '@shared/ui/language-picker/language-picker.shared'
+import { useAppConfig } from '@entities/app-config-store'
 import { Page, RemnawaveLogo } from '@shared/ui'
 
 interface IMainPageComponentProps {
@@ -38,8 +37,6 @@ const SUBSCRIPTION_INFO_BLOCK_RENDERERS = {
 
 export const MainPageComponent = ({ isMobile, platform }: IMainPageComponentProps) => {
     const config = useAppConfig()
-    const currentLang = useCurrentLang()
-    const { setLanguage } = useAppConfigStoreActions()
 
     const brandName = config.brandingSettings.title
     let hasCustomLogo = !!config.brandingSettings.logoUrl
@@ -126,14 +123,6 @@ export const MainPageComponent = ({ isMobile, platform }: IMainPageComponentProp
                     )}
 
                     <RawKeysWidget isMobile={isMobile} />
-
-                    <Center>
-                        <LanguagePicker
-                            currentLang={currentLang}
-                            locales={config.locales}
-                            onLanguageChange={setLanguage}
-                        />
-                    </Center>
                 </Stack>
             </Container>
         </Page>

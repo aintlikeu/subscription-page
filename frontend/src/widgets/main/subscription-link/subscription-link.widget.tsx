@@ -12,6 +12,8 @@ import { useClipboard } from '@mantine/hooks'
 import { modals } from '@mantine/modals'
 import { renderSVG } from 'uqr'
 
+import { useAppConfig, useAppConfigStoreActions, useCurrentLang } from '@entities/app-config-store'
+import { LanguagePicker } from '@shared/ui/language-picker/language-picker.shared'
 import { constructSubscriptionUrl } from '@shared/utils/construct-subscription-url'
 import { useSubscription } from '@entities/subscription-info-store'
 import { vibrate } from '@shared/utils/vibrate'
@@ -27,6 +29,9 @@ interface IProps {
 export const SubscriptionLinkWidget = ({ supportUrl, hideGetLink }: IProps) => {
     const { t, baseTranslations } = useTranslation()
     const subscription = useSubscription()
+    const { locales } = useAppConfig()
+    const currentLang = useCurrentLang()
+    const { setLanguage } = useAppConfigStoreActions()
     const clipboard = useClipboard({ timeout: 10000 })
 
     const subscriptionUrl = constructSubscriptionUrl(
@@ -134,6 +139,12 @@ export const SubscriptionLinkWidget = ({ supportUrl, hideGetLink }: IProps) => {
                     <IconLink />
                 </ActionIcon>
             )}
+
+            <LanguagePicker
+                currentLang={currentLang}
+                locales={locales}
+                onLanguageChange={setLanguage}
+            />
 
             {supportUrl !== '' && renderSupportLink(supportUrl)}
         </Group>
